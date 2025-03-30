@@ -48,6 +48,7 @@ Sistema de cadastro de clientes desenvolvido com AngularJS e .NET 8.
 - **ErrorOr** - Biblioteca para tratamento de erros e validações de forma funcional, evitando o uso de exceções
 - **Database First** - Abordagem de desenvolvimento onde o banco de dados é criado primeiro e o Entity Framework gera as classes de modelo a partir dele
 - **Migrations** - Controle de versionamento do banco de dados, permitindo rastrear, aplicar e reverter alterações no esquema
+- **SonarQube** - Ferramenta de análise estática de código que ajuda a manter a qualidade do código, identificando bugs, vulnerabilidades de segurança, code smells e cobertura de testes
 
 ## 🚀 Como Executar
 
@@ -60,6 +61,8 @@ Sistema de cadastro de clientes desenvolvido com AngularJS e .NET 8.
 1. Clonar o projeto:
 ```bash
 git clone https://github.com/gustavocesar/cadastro-clientes
+
+cd ./cadastro-clientes
 ```
 
 2. Construir a imagem:
