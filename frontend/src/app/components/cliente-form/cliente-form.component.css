@@ -1,0 +1,43 @@
+.form-card {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.button-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+mat-card-title {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .form-card {
+    margin: 10px;
+  }
+}
+
+.inscricao-estadual-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.inscricao-estadual-container mat-form-field {
+  flex: 1;
+}
+
