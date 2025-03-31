@@ -1,32 +1,32 @@
 using CadastroCliente.Application.Queries;
+using CadastroCliente.Application.Queries.Handlers;
 using CadastroCliente.Domain.Entities;
 using CadastroCliente.Domain.Repositories;
 using Moq;
 
 namespace CadastroClienteTests.Application.Queries;
 
-public class PessoaFisicaQueryTests : BaseTests
+public class PessoaJuridicaQueryTests : BaseTests
 {
+    private readonly ObterPessoaJuridicaQueryHandler _handler;
+    private readonly ObterPessoaJuridicaQuery _query = new() { Id = Guid.NewGuid() };
     private readonly Mock<IClienteRepository> _clienteRepositoryMock;
-    private readonly PessoaFisicaQuery _pessoaFisicaQuery;
 
-    public PessoaFisicaQueryTests()
+    public PessoaJuridicaQueryTests()
     {
         _clienteRepositoryMock = new Mock<IClienteRepository>();
-        _pessoaFisicaQuery = new PessoaFisicaQuery(_clienteRepositoryMock.Object);
+        _handler = new ObterPessoaJuridicaQueryHandler(_clienteRepositoryMock.Object);
     }
 
     [Fact]
     public async Task ObterPorId_QuandoClienteNaoEncontrado_DeveRetornarErro()
     {
         // Arrange
-        var id = Guid.NewGuid();
-
-        _clienteRepositoryMock.Setup(r => r.ObterPorId(id))
+        _clienteRepositoryMock.Setup(r => r.ObterPorId(It.IsAny<Guid>()))
             .ReturnsAsync((Cliente)null!);
 
         // Act
-        var resultado = await _pessoaFisicaQuery.ObterPorId(id);
+        var resultado = await _handler.Handle(_query, CancellationToken.None);
 
         // Assert
         Assert.Equal("NotFound", resultado.FirstError.Type.ToString());
@@ -36,17 +36,15 @@ public class PessoaFisicaQueryTests : BaseTests
     public async Task ObterPorId_QuandoClienteEncontrado_DeveRetornarCliente()
     {
         // Arrange
-        var id = Guid.NewGuid();
-
-        _clienteRepositoryMock.Setup(r => r.ObterPorIdAsNoTracking(id))
-            .ReturnsAsync(_pessoaFisicaValida);
+        _clienteRepositoryMock.Setup(r => r.ObterPorIdAsNoTracking(It.IsAny<Guid>()))
+            .ReturnsAsync(_pessoaJuridicaValida);
 
         // Act
-        var resultado = await _pessoaFisicaQuery.ObterPorId(id);
+        var resultado = await _handler.Handle(_query, CancellationToken.None);
 
         // Assert
         Assert.NotNull(resultado.Value);
-        Assert.Equal(_pessoaFisicaValida.Id, resultado.Value.Id);
+        Assert.Equal(_pessoaJuridicaValida.Id, resultado.Value.Id);
     }
 }
     

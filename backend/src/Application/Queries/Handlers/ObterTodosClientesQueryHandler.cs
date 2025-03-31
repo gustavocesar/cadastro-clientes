@@ -1,20 +1,21 @@
-using CadastroCliente.Application.Queries.Interfaces;
+using Application.Queries;
 using CadastroCliente.Application.Query.Responses;
 using CadastroCliente.Domain.Entities;
 using CadastroCliente.Domain.Repositories;
+using MediatR;
 
-namespace CadastroCliente.Application.Queries;
+namespace CadastroCliente.Application.Queries.Handlers;
 
-public class ClientesQuery : IClientesQuery
+public class ObterTodosClientesQueryHandler : IRequestHandler<ObterTodosClientesQuery, IEnumerable<ClienteQueryResponse>>
 {
     private readonly IClienteRepository _clienteRepository;
 
-    public ClientesQuery(IClienteRepository clienteRepository)
+    public ObterTodosClientesQueryHandler(IClienteRepository clienteRepository)
     {
         _clienteRepository = clienteRepository;
     }
 
-    public async Task<IEnumerable<ClienteQueryResponse>> ObterTodos()
+    public async Task<IEnumerable<ClienteQueryResponse>> Handle(ObterTodosClientesQuery request, CancellationToken cancellationToken)
     {
         var clientes = await _clienteRepository.ObterTodos();
 

@@ -1,4 +1,5 @@
-using CadastroCliente.Application.Queries.Interfaces;
+using Application.Queries;
+using MediatR;
 using System.Diagnostics.CodeAnalysis;
 namespace CadastroCliente.Endpoints;
 
@@ -9,9 +10,9 @@ public static class ClientesEndpoints
     {
         var root = "clientes";
 
-        app.MapGet($"/{root}", async (IClientesQuery query) =>
+        app.MapGet($"/{root}", async (IMediator mediator) =>
         {
-            var clientes = await query.ObterTodos();
+            var clientes = await mediator.Send(new ObterTodosClientesQuery());
 
             return Results.Ok(clientes);
         });

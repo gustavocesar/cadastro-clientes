@@ -89,4 +89,3 @@ npm start
 ## Próximos Passos
  - Implementação de Event Sourcing
  - Refatoração das Entidades, para evitar Primitive Obsession
- - Refatoração dos Commands e Queries, para reduzir o acoplamento usando  Mediatr

@@ -1,14 +1,14 @@
 services:
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "5000:80"
-    environment:
-      - ConnectionStrings__DefaultConnection=Server=db;Database=CadastroClientes;User Id=sa;Password=P@ssw0rd!12345;TrustServerCertificate=True
-    depends_on:
-      - db
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5000:80"
+  #   environment:
+  #     - ConnectionStrings__DefaultConnection=Server=db;Database=CadastroClientes;User Id=sa;Password=P@ssw0rd!12345;TrustServerCertificate=True
+  #   depends_on:
+  #     - db
 
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest

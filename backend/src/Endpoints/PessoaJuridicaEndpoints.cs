@@ -1,7 +1,7 @@
-using CadastroCliente.Application.Commands.Interfaces;
-using CadastroCliente.Application.Commands.Requests;
-using CadastroCliente.Application.Queries.Interfaces;
+using CadastroCliente.Application.Commands;
+using CadastroCliente.Application.Queries;
 using CadastroCliente.Extensions;
+using MediatR;
 using System.Diagnostics.CodeAnalysis;
 namespace CadastroCliente.Endpoints;
 
@@ -12,9 +12,10 @@ public static class PessoaJuridicaEndpoints
     {
         var root = "pessoas-juridicas";
 
-        app.MapGet($"/{root}/{{id}}", async (Guid id, IPessoaJuridicaQuery query) =>
+        app.MapGet($"/{root}/{{id}}", async (Guid id, IMediator mediator) =>
         {
-            var response = await query.ObterPorId(id);
+            var query = new ObterPessoaJuridicaQuery { Id = id };
+            var response = await mediator.Send(query);
 
             if (response.IsError)
                 return Results.NotFound();
@@ -22,9 +23,9 @@ public static class PessoaJuridicaEndpoints
             return Results.Ok(response.Value);
         });
 
-        app.MapPost($"/{root}", async (PessoaJuridicaCommandRequest request, IPessoaJuridicaCommand command) =>
+        app.MapPost($"/{root}", async (CadastrarPessoaJuridicaCommand command, IMediator mediator) =>
         {
-            var response = await command.Criar(request);
+            var response = await mediator.Send(command);
 
             if (response.IsError)
                 return response.ToErrorResult();
@@ -32,9 +33,10 @@ public static class PessoaJuridicaEndpoints
             return Results.Ok(response.Value);
         });
 
-        app.MapPut($"/{root}/{{id}}", async (Guid id, PessoaJuridicaCommandRequest request, IPessoaJuridicaCommand command) =>
+        app.MapPut($"/{root}/{{id}}", async (Guid id, AlterarPessoaJuridicaCommand command, IMediator mediator) =>
         {
-            var response = await command.Atualizar(id, request);
+            command.Id = id;
+            var response = await mediator.Send(command);
 
             if (response.IsError)
                 return response.ToErrorResult();
@@ -42,9 +44,9 @@ public static class PessoaJuridicaEndpoints
             return Results.Ok(response.Value);
         });
 
-        app.MapDelete($"/{root}/{{id}}", async (Guid id, IPessoaJuridicaCommand command) =>
+        app.MapDelete($"/{root}/{{id}}", async (Guid id, IMediator mediator) =>
         {
-            var response = await command.Deletar(id);
+            var response = await mediator.Send(new DeletarPessoaJuridicaCommand { Id = id });
 
             if (response.IsError)
                 return response.ToErrorResult();

@@ -1,7 +1,3 @@
-using CadastroCliente.Application.Commands;
-using CadastroCliente.Application.Commands.Interfaces;
-using CadastroCliente.Application.Queries;
-using CadastroCliente.Application.Queries.Interfaces;
 using CadastroCliente.Domain.Repositories;
 using CadastroCliente.Domain.Validators;
 using CadastroCliente.Infrastructure;
@@ -9,6 +5,8 @@ using CadastroCliente.Infrastructure.Repositories;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
+
 namespace CadastroCliente.Extensions;
 
 [ExcludeFromCodeCoverage]
@@ -39,6 +37,11 @@ public static class BuilderExtension
 
         AddServices(builder);
 
+        builder.Services.AddMediatR(cfg => {
+            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            // cfg.AddBehavior<ValidationBehavior>();
+        });
+
         return builder;
     }
 
@@ -51,11 +54,6 @@ public static class BuilderExtension
 
     private static void AddServices(WebApplicationBuilder builder)
     {
-        builder.Services.AddScoped<IPessoaFisicaCommand, PessoaFisicaCommand>();
-        builder.Services.AddScoped<IPessoaJuridicaCommand, PessoaJuridicaCommand>();
-        builder.Services.AddScoped<IClientesQuery, ClientesQuery>();
-        builder.Services.AddScoped<IPessoaFisicaQuery, PessoaFisicaQuery>();
-        builder.Services.AddScoped<IPessoaJuridicaQuery, PessoaJuridicaQuery>();
         builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
     }
 }

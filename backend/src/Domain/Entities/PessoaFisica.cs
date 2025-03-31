@@ -1,3 +1,4 @@
+using CadastroCliente.Application.Commands;
 using CadastroCliente.Domain.Enums;
 using CadastroCliente.Domain.Validators;
 using CadastroCliente.Extensions;

@@ -1,10 +1,14 @@
 using System.Diagnostics.CodeAnalysis;
+using CadastroCliente.Application.Commands.Requests;
+using CadastroCliente.Application.Commands.Responses;
 using CadastroCliente.Domain.Entities;
+using ErrorOr;
+using MediatR;
 
-namespace CadastroCliente.Application.Commands.Requests;
+namespace CadastroCliente.Application.Commands;
 
 [ExcludeFromCodeCoverage]
-public class PessoaJuridicaCommandRequest
+public class CadastrarPessoaJuridicaCommand : IRequest<ErrorOr<PessoaJuridicaCommandResponse>>
 {
     public string RazaoSocial { get; set; } = null!;
     public string Cnpj { get; set; } = null!;
@@ -15,8 +19,7 @@ public class PessoaJuridicaCommandRequest
     public DateTime DataNascimento { get; set; } = DateTime.Now;
     public EnderecoCommandRequest Endereco { get; set; } = new();
 
-
-    public static implicit operator PessoaJuridica(PessoaJuridicaCommandRequest request)
+    public static implicit operator PessoaJuridica(CadastrarPessoaJuridicaCommand request)
     {
         var endereco = new Endereco(
             request.Endereco.Cep,
