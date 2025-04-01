@@ -44,9 +44,9 @@ Sistema de cadastro de clientes desenvolvido com AngularJS e .NET 8.
 - **Containerização:** Docker e Docker Compose
 - **Minimal APIs** - Abordagem simplificada do .NET para criar APIs HTTP com sintaxe mais concisa e menor cerimônia, ideal para microserviços e aplicações menores
 - **Entity Framework Core** - ORM para acesso e manipulação do banco de dados
-- **SQL Server** - Sistema de gerenciamento de banco de dados relacional**
+- **SQL Server** - Sistema de gerenciamento de banco de dados relacional
 - **ErrorOr** - Biblioteca para tratamento de erros e validações de forma funcional, evitando o uso de exceções
-- **Database First** - Abordagem de desenvolvimento onde o banco de dados é criado primeiro e o Entity Framework gera as classes de modelo a partir dele
+- **Code First** - Abordagem de desenvolvimento onde as entidades são criadas primeiro, e o banco de dados é criado a partir das configurações das entidades
 - **Migrations** - Controle de versionamento do banco de dados, permitindo rastrear, aplicar e reverter alterações no esquema
 - **SonarQube** - Ferramenta de análise estática de código que ajuda a manter a qualidade do código, identificando bugs, vulnerabilidades de segurança, code smells e cobertura de testes
 
